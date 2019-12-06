@@ -5,7 +5,7 @@ using UnityEngine;
 public class Maze : MonoBehaviour
 {
     public GameObject[] mazeBoxList;
-    public List<Transform> mazeBoxTransList = new List<Transform>();
+    //public List<Transform> mazeBoxTransList = new List<Transform>();
    
     void Start()
     {
@@ -17,7 +17,7 @@ public class Maze : MonoBehaviour
             
         }
     }
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         FillBoxTransList();
@@ -43,5 +43,5 @@ public class Maze : MonoBehaviour
                 mazeBoxTransList.Add(boxTrans); 
             }
         }
-    }
+    }*/
 }
