@@ -16,7 +16,6 @@ public class CharacterMove : MonoBehaviour
     {
         var targetPosition = GetComponent<Character>().MoveTarget();
         MoveForwardTarget(targetPosition);
-        Debug.Log("tar" + targetPosition);
     }
 
     void MoveForwardTarget(Vector3 targetPos)

@@ -26,7 +26,6 @@ public class Character : MonoBehaviour
     public Vector3 MoveTarget()
     {
         Vector3 currentPosition = transform.position;
-        Debug.Log("cur" + currentPosition);
                
         if (currentMazeBox + steps < thisMaze.mazeBoxList.Length)
         {
