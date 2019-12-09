@@ -7,6 +7,8 @@ TagManager:
   - MazeBox
   - Bush
   - BushSquare
+  - Field
+  - PlacedBushSquare
   layers:
   - Default
   - TransparentFX

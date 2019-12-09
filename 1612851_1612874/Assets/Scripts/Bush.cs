@@ -21,10 +21,10 @@ public class Bush : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        /*if (Input.GetKeyDown(KeyCode.DownArrow)) {
             
             RemoveBushOnOption(1);
-         }
+         }*/
         
         for (int i = 0; i < selectAnchor.Length; i++)
         {
@@ -69,5 +69,10 @@ public class Bush : MonoBehaviour
         bushList.AddRange(temp);
         Debug.Log(bushList[0]);
         Debug.Log(bushList[1]);
+    }
+
+    List<GameObject> GetBushList()
+    {
+        return bushList;
     }
 }
