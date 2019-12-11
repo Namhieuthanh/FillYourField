@@ -6,11 +6,17 @@ public class PlaceBushController : MonoBehaviour
 {
     GameObject currentObject, clone;
     bool isPlacing = false;
-    public GameObject bushListObj;
-    List<GameObject> bushSquareList = new List<GameObject>();
-    // Update is called once per frame
+    int selectedBushID = -1;
+    public GameObject bushListObj; //object: danh sách các bụi cỏ 
+    List<GameObject> bushSquareList = new List<GameObject>(); //danh sách các ô cỏ trong bụi
+    public GameObject[] fields = new GameObject[2];
+    
     void Update()
     {
+        if (fields[0].GetComponent<Field>().receivedGift)
+            Debug.Log("Chau hoa cho anh 1");
+        if (fields[1].GetComponent<Field>().receivedGift)
+            Debug.Log("Chua hoa cho anh 2");
         if (isPlacing == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -20,11 +26,13 @@ public class PlaceBushController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit) && (hit.transform != null) && (hit.transform.gameObject.CompareTag("BushSquare")))
                 {
                     currentObject = (hit.transform.parent).gameObject;
-                    List<GameObject> bushListClone = bushListObj.GetComponent<Bush>().bushList;
+                    List<GameObject> bushListClone = bushListObj.GetComponent<Bush>().bushList; //LIST: danh sách các  bụi cỏ
                     for (int i = 0; i < 3; i++)
                     {
                         if (currentObject.name == bushListClone[i].name)
                         {
+                            selectedBushID = i;
+
                             Vector3 clonePos = hit.point;
                             clonePos.y = 0.51f;
                             clone = GameObject.Instantiate(currentObject, clonePos, Quaternion.identity) as GameObject;
@@ -37,7 +45,7 @@ public class PlaceBushController : MonoBehaviour
                                 }
                                 else //child: BushSquare
                                 {
-                                    Debug.Log(child.gameObject);
+
                                     bushSquareList.Add(child.gameObject);
                                 }
                             }
@@ -51,17 +59,20 @@ public class PlaceBushController : MonoBehaviour
         {
             MoveToMouse();
             RotateBush();
-            if (CheckValid())
+            /*if (CheckValid())
                 Debug.Log("ok");
                 //mau xanh
             else
                 Debug.Log("not ok");
-                //mau do
-            
+                //mau do*/
+
             if (Input.GetMouseButtonDown(0))
+            {
                 PlaceBush();
+            }
             if (Input.GetKeyDown(KeyCode.Space))
                 CancelPlacing();
+            
         }
     }
     void MoveToMouse()
@@ -125,8 +136,12 @@ public class PlaceBushController : MonoBehaviour
             foreach (var bushSquare in bushSquareList)
             {
                 bushSquare.tag = "PlacedBushSquare";
+                List<Transform> placedFieldSquare = bushSquare.GetComponent<BushTrigger>().collidderField;
+                placedFieldSquare[0].gameObject.tag = "PlacedField";
             }
             bushSquareList.Clear();
+
+            bushListObj.GetComponent<Bush>().RemoveBushOnOption(selectedBushID);
         }
     }
 

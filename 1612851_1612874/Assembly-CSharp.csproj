@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\BushTrigger.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\CharacterMove.cs" />
+     <Compile Include="Assets\Scripts\Field.cs" />
      <Compile Include="Assets\Scripts\Maze.cs" />
      <Compile Include="Assets\Scripts\PlaceBushController.cs" />
      <None Include="Assets\Animations\_micro_dragon_animations.txt" />

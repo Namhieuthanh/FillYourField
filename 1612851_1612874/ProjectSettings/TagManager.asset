@@ -9,6 +9,7 @@ TagManager:
   - BushSquare
   - Field
   - PlacedBushSquare
+  - PlacedField
   layers:
   - Default
   - TransparentFX

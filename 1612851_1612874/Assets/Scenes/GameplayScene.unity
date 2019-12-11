@@ -5913,6 +5913,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bushListObj: {fileID: 821939755}
+  fields:
+  - {fileID: 1193028826}
+  - {fileID: 2142172944}
 --- !u!4 &373981424
 Transform:
   m_ObjectHideFlags: 0
@@ -15984,6 +15987,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1190675089}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1193028826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876430764739814992, guid: dbaa046885bed9645bf194201a75f635,
+    type: 3}
+  m_PrefabInstance: {fileID: 2206015434318295949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1193028828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193028826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a70e907509b6fc44801e5630ebc0fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  receivedGift: 0
 --- !u!1001 &1201652463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29276,6 +29298,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &2142172944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876430764739814992, guid: dbaa046885bed9645bf194201a75f635,
+    type: 3}
+  m_PrefabInstance: {fileID: 1159611521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2142172946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142172944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a70e907509b6fc44801e5630ebc0fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  receivedGift: 0
 --- !u!102 &1214533142515675621
 TextMesh:
   serializedVersion: 3
@@ -29662,6 +29703,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Bush
       objectReference: {fileID: 0}
+    - target: {fileID: 5462950100530616671, guid: 1bd3cffd10b114a45b6c661924e66155,
+        type: 3}
+      propertyPath: m_TagString
+      value: BushSquare
+      objectReference: {fileID: 0}
     - target: {fileID: 5010482519704267992, guid: 1bd3cffd10b114a45b6c661924e66155,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -29731,11 +29777,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5462950100530616671, guid: 1bd3cffd10b114a45b6c661924e66155,
-        type: 3}
-      propertyPath: m_TagString
-      value: BushSquare
       objectReference: {fileID: 0}
     - target: {fileID: 3508611400268678718, guid: 1bd3cffd10b114a45b6c661924e66155,
         type: 3}

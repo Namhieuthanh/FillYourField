@@ -54,7 +54,7 @@ public class Bush : MonoBehaviour
 
     }
 
-    void RemoveBushOnOption(int bushID){
+    public void RemoveBushOnOption(int bushID){
         List<GameObject> temp = new List<GameObject>();
         
         for (int i = 0; i < bushID; i++)
@@ -71,8 +71,5 @@ public class Bush : MonoBehaviour
         Debug.Log(bushList[1]);
     }
 
-    List<GameObject> GetBushList()
-    {
-        return bushList;
-    }
+ 
 }
