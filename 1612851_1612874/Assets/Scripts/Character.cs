@@ -5,22 +5,18 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public Maze thisMaze;
-    int steps;
-    int currentMazeBox;
+    public int steps;
+    public int currentMazeBox;
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentMazeBox = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            steps = 6;
-        }
+        
     }
 
     public Vector3 MoveTarget()

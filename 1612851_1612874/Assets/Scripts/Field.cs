@@ -64,11 +64,27 @@ public class Field : MonoBehaviour
         }
     }
 
+    public int GetEmptyFieldNumber()
+    {
+        int res = 0;
+        for (int col = 0; col < 9; col++)
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                if (fieldSquareList[col][row].CompareTag("Field"))
+                {
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
     public bool checkGiftCondition() //kiem tra 7x7
     {
-        for (int col = 0; col < 6; col++)
+        for (int col = 0; col < 3; col++)
         {
-            for (int row = 0; row < 6; row++)
+            for (int row = 0; row < 3; row++)
             {
                 if (check7x7(col, row) == true)
                     return true;
@@ -79,9 +95,9 @@ public class Field : MonoBehaviour
 
     bool check7x7(int col, int row)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 7; j++)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 7; i++)
             {
                 if (placedFieldSquareList[col+j][row+i] == false)
                 {
