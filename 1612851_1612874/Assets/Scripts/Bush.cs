@@ -67,8 +67,6 @@ public class Bush : MonoBehaviour
         bushList.Remove(bushList[0]); //remove bushID
 
         bushList.AddRange(temp);
-        Debug.Log(bushList[0]);
-        Debug.Log(bushList[1]);
     }
 
  

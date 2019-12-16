@@ -55,12 +55,16 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bush.cs" />
      <Compile Include="Assets\Scripts\BushTrigger.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
-     <Compile Include="Assets\Scripts\CharacterMove.cs" />
+     <Compile Include="Assets\Scripts\CharacterTrigger.cs" />
      <Compile Include="Assets\Scripts\Field.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Maze.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\UIController.cs" />
+     <None Include="Assets\Prefabs\Fruit Pack\Shaders\ToonLitTransparent.shader" />
+     <None Include="Assets\Prefabs\Fruit Pack\Shaders\ToonLit.shader" />
      <None Include="Assets\Animations\_micro_dragon_animations.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>E:/Documents/GitHub/FillYourField/1612851_1612874/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

@@ -10,6 +10,7 @@ TagManager:
   - Field
   - PlacedBushSquare
   - PlacedField
+  - Apple
   layers:
   - Default
   - TransparentFX

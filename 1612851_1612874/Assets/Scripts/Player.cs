@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int gold, score;
+    public int gold, score, profit;
     public bool haveGift;
     public GameObject playerChar, playerField;
     // Start is called before the first frame update
@@ -18,25 +18,38 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        AppleTrigger();
     }
 
-    void PayGold(int g)
+    public void PayGold(int g)
     {
         gold -= g;
     }
 
-    void ReciveGold(int g)
+    public void ReciveGold(int g)
     {
         gold += g;
     }
 
     void CalculateScore()
     {
-        int emptyFieldNumber = playerField.AddComponent<Field>().GetEmptyFieldNumber();
+        int emptyFieldNumber = playerField.AddComponent<Field>().GetPlacedFieldNumber();
         score = gold - 2 * emptyFieldNumber;
         if (haveGift == true)
             score += 7;
     }
-    
+
+    public void StoreProfit(int pro)
+    {
+        profit += pro;
+    }
+
+    public void AppleTrigger()
+    {
+        if (playerChar.GetComponent<CharacterTrigger>().appleTrigger)
+        {
+            ReciveGold(profit);
+        }
+        playerChar.GetComponent<CharacterTrigger>().appleTrigger = false;
+    }
 }

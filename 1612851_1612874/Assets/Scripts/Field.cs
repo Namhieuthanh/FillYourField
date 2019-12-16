@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Field : MonoBehaviour
 {
     public List<List<GameObject>> fieldSquareList = new List<List<GameObject>>(); //[col][row]
     public List<List<bool>> placedFieldSquareList = new List<List<bool>>();
     public bool receivedGift = false;
+   
     void Start()
     {
         List<GameObject> getFieldSquare = new List<GameObject>();
@@ -17,7 +19,8 @@ public class Field : MonoBehaviour
                 getFieldSquare.Add(child);
         }
         
-        
+        getFieldSquare.OrderBy(sort => sort.transform.GetSiblingIndex()).ToArray();
+
         for (int col = 0; col < 9; col++)
         {
             List<GameObject> fieldRow = new List<GameObject>();
@@ -64,14 +67,14 @@ public class Field : MonoBehaviour
         }
     }
 
-    public int GetEmptyFieldNumber()
+    public int GetPlacedFieldNumber()
     {
         int res = 0;
         for (int col = 0; col < 9; col++)
         {
             for (int row = 0; row < 9; row++)
             {
-                if (fieldSquareList[col][row].CompareTag("Field"))
+                if (fieldSquareList[col][row].CompareTag("PlacedField"))
                 {
                     res++;
                 }
@@ -108,4 +111,6 @@ public class Field : MonoBehaviour
 
         return true;
     }
+
+    
 }
