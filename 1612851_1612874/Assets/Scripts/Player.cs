@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         AppleTrigger();
+        CalculateScore();
     }
 
     public void PayGold(int g)
@@ -31,10 +32,10 @@ public class Player : MonoBehaviour
         gold += g;
     }
 
-    void CalculateScore()
+    public void CalculateScore()
     {
-        int emptyFieldNumber = playerField.AddComponent<Field>().GetPlacedFieldNumber();
-        score = gold - 2 * emptyFieldNumber;
+        int emptyFieldNumber = playerField.GetComponent<Field>().GetUnplacedFieldNumber();
+        score = 162 + gold - 2 * emptyFieldNumber;
         if (haveGift == true)
             score += 7;
     }
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
         if (playerChar.GetComponent<CharacterTrigger>().appleTrigger)
         {
             ReciveGold(profit);
+            //CalculateScore();
         }
         playerChar.GetComponent<CharacterTrigger>().appleTrigger = false;
     }

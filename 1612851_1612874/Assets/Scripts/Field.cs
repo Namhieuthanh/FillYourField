@@ -40,6 +40,7 @@ public class Field : MonoBehaviour
             }
             placedFieldSquareList.Add(checkFieldRow);
         }
+
     }
 
     // Update is called once per frame
@@ -67,14 +68,14 @@ public class Field : MonoBehaviour
         }
     }
 
-    public int GetPlacedFieldNumber()
+     public int GetUnplacedFieldNumber()
     {
         int res = 0;
         for (int col = 0; col < 9; col++)
         {
             for (int row = 0; row < 9; row++)
             {
-                if (fieldSquareList[col][row].CompareTag("PlacedField"))
+                if (fieldSquareList[col][row].CompareTag("Field"))
                 {
                     res++;
                 }

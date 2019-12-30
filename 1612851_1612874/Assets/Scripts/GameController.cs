@@ -10,8 +10,9 @@ public class GameController : MonoBehaviour
     public GameObject bushListObj; //object: danh sách các bụi cỏ 
     public bool turn; //true = lượt player 1, false = lượt player 2
     public GameObject camController;
-    public Material redMat, greenMat;
-    public Button buyButton, skipButton;
+    public Material redMat, greenMat, greyMat;
+    public Button skipButton;
+    public GameObject[] playerTurnMark = new GameObject[2];
 
     //danh sách biến chức năng đặt cỏ vào field
     GameObject currentObject, clone;
@@ -27,16 +28,29 @@ public class GameController : MonoBehaviour
     }
     void Update()
     {
-        SendGift();
-        StartCoroutine(PutBushSquareGift());
-
-        if (CheckChangeTurn() == true)
+        if (turn)
         {
-            ChangeTurn();
+            playerTurnMark[0].SetActive(true);
+            playerTurnMark[1].SetActive(false);
         }
-
-        if (isGift == false)
+        else
         {
+            playerTurnMark[0].SetActive(false);
+            playerTurnMark[1].SetActive(true);
+        }
+        SendGift();
+        StartCoroutine(CheckBushSquareGift());
+        if (isGift == true)
+            PutBushSquareGift();
+        else
+        {
+            if (CheckChangeTurn() == true)
+            {
+                ChangeTurn();
+            }
+
+            ChangeColorToGrey();
+
             if (isPlacing == false)
             {
                 ChooseBushAndClone();
@@ -195,13 +209,7 @@ public class GameController : MonoBehaviour
             clone.transform.position = newPos;
 
             isPlacing = false;
-
-            //thanh toán tiền mua mảnh cỏ
-            Payment(int.Parse(clone.transform.Find("Info").Find("Price").gameObject.GetComponent<TextMesh>().text));
-
-            //tích luỹ lợi nhuận
-            StoreFieldProfit(int.Parse(clone.transform.Find("Profit").Find("Fruit").gameObject.GetComponent<TextMesh>().text));
-
+                        
             //đổi tag cỏ và khoảng sân (đánh dấu là không còn sử dụng được nữa)
             foreach (var bushSquare in bushSquareList)
             {
@@ -210,6 +218,12 @@ public class GameController : MonoBehaviour
                 placedFieldSquare[0].gameObject.tag = "PlacedField";
             }
             bushSquareList.Clear();
+
+            //thanh toán tiền mua mảnh cỏ
+            Payment(int.Parse(clone.transform.Find("Info").Find("Price").gameObject.GetComponent<TextMesh>().text));
+
+            //tích luỹ lợi nhuận
+            StoreFieldProfit(int.Parse(clone.transform.Find("Profit").Find("Fruit").gameObject.GetComponent<TextMesh>().text));
 
             //xoá thảm cỏ trên băng chuyền 
             bushListObj.GetComponent<Bush>().RemoveBushOnOption(selectedBushID);
@@ -227,9 +241,15 @@ public class GameController : MonoBehaviour
     void SendGift()
     {
         if (players[0].GetComponent<Player>().playerField.GetComponent<Field>().receivedGift)
+        {
             players[0].GetComponent<Player>().haveGift = true;
+            players[0].GetComponent<Player>().CalculateScore();
+        }
         if (players[1].GetComponent<Player>().playerField.GetComponent<Field>().receivedGift)
+        {
             players[1].GetComponent<Player>().haveGift = true;
+            players[1].GetComponent<Player>().CalculateScore();
+        }
     }
 
     void MakeCharacterMove(int step)
@@ -260,9 +280,65 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void ChangeColorToGrey()
+    {
+        for (int i = 3; i < 6; i++)
+        {
+            List<GameObject> squareList = new List<GameObject>();
+            foreach (Transform child in (bushListObj.GetComponent<Bush>().bushList)[i].transform)
+            {
+                if (child.CompareTag("BushSquare") == true)
+                {                  
+                    squareList.Add(child.gameObject);
+                }
+            }
+            foreach(var square in squareList)
+            {
+                square.GetComponent<MeshRenderer>().material = greyMat;
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            List<GameObject> squareList = new List<GameObject>();
+            foreach (Transform child in (bushListObj.GetComponent<Bush>().bushList)[i].transform)
+            {
+                if (child.CompareTag("BushSquare") == true)
+                {
+                    squareList.Add(child.gameObject);
+                }
+            }
+
+            int bushPrice = int.Parse((bushListObj.GetComponent<Bush>().bushList)[i].transform.Find("Info").Find("Price").gameObject.GetComponent<TextMesh>().text);
+            int playerGold = 0;
+            if (turn)
+            {
+                playerGold = players[0].GetComponent<Player>().gold;
+            }
+            else
+            {
+                playerGold = players[1].GetComponent<Player>().gold;
+            }
+
+            if (playerGold >= bushPrice)
+            {
+                foreach (var square in squareList)
+                {
+                    square.GetComponent<MeshRenderer>().material = greenMat;
+                }
+            }
+            else
+            {
+                foreach (var square in squareList)
+                {
+                    square.GetComponent<MeshRenderer>().material = greyMat;
+                }
+            }
+        }
+    }
+
     void ChangeTurn()
     {
-        skipButton.gameObject.SetActive(true);
         turn = !turn;
     }
 
@@ -306,10 +382,12 @@ public class GameController : MonoBehaviour
         if (turn)
         {
             players[0].GetComponent<Player>().PayGold(gold);
+            //players[0].GetComponent<Player>().CalculateScore();
         }
         else
         {
             players[1].GetComponent<Player>().PayGold(gold);
+            //players[1].GetComponent<Player>().CalculateScore();
         }
     }
 
@@ -325,13 +403,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-    IEnumerator PutBushSquareGift()
+    IEnumerator CheckBushSquareGift()
     {
         for (int playerID = 0; playerID < 2; playerID++)
         {
             if (players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareTrigger == true)
             {
+
                 isGift = true;
+                players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareTrigger = false;
+
                 GameObject bushGift = players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareGift;
                 if (Camera.main == null)
                 {
@@ -344,49 +425,63 @@ public class GameController : MonoBehaviour
                 {
                     Vector3 clonePos = hit.point;
                     clonePos.y = 0.51f;
-                    clone = GameObject.Instantiate(bushGift, clonePos, Quaternion.Euler(90,0,0)) as GameObject;
+                    clone = GameObject.Instantiate(bushGift, clonePos, Quaternion.Euler(90, 0, 0)) as GameObject;
                     Destroy(bushGift);
                     bushSquareList.Add(clone);
                     isPlacing = true;
 
                 }
-                if ((isPlacing == true) && (Physics.Raycast(ray, out hit)))
+                ChangeTurn();
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+    void PutBushSquareGift()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if ((isPlacing == true) && (Physics.Raycast(ray, out hit)))
+        {
+            Vector3 hitPoint = hit.point;
+            hitPoint.y = 0.51f;
+            clone.transform.position = hitPoint;
+            bool temp = CheckValid();
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (CheckValid() == true)
                 {
-                    Vector3 hitPoint = hit.point;
-                    hitPoint.y = 0.51f;
-                    clone.transform.position = hitPoint;
-                    bool temp = CheckValid();
-                    if (Input.GetMouseButtonDown(0))
+                    //tìm ô sân gần nhất trong các ô hợp lệ để đặt cỏ vào
+                    List<Transform> touchedField = bushSquareList[0].GetComponent<BushTrigger>().collidderField;
+                    var minDistance = Vector3.Distance(clone.transform.position, touchedField[0].position);
+                    int minID = 0;
+                    for (int i = 1; i < touchedField.Count; i++)
                     {
-                        if (CheckValid() == true)
+                        if (minDistance > Vector3.Distance(clone.transform.position, touchedField[i].position))
                         {
-                            //tìm ô sân gần nhất trong các ô hợp lệ để đặt cỏ vào
-                            List<Transform> touchedField = bushSquareList[0].GetComponent<BushTrigger>().collidderField;
-                            var minDistance = Vector3.Distance(clone.transform.position, touchedField[0].position);
-                            int minID = 0;
-                            for (int i = 1; i < touchedField.Count; i++)
-                            {
-                                if (minDistance > Vector3.Distance(clone.transform.position, touchedField[i].position))
-                                {
-                                    minDistance = Vector3.Distance(clone.transform.position, touchedField[i].position);
-                                    minID = i;
-                                }
-                            }
-                            Vector3 newPos = touchedField[minID].position;
-                            newPos.y = 0.55f;
-                            clone.transform.position = newPos;
-
-                            isPlacing = false;
-                            players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareTrigger = false;
-                            isGift = false;
+                            minDistance = Vector3.Distance(clone.transform.position, touchedField[i].position);
+                            minID = i;
                         }
-                        yield return new WaitForSeconds(0.1f);
                     }
+                    Vector3 newPos = touchedField[minID].position;
+                    newPos.y = 0.55f;
+                    clone.transform.position = newPos;
+
+                    isPlacing = false;
+
+
+                    //đổi tag khoảng sân (đánh dấu là không còn sử dụng được nữa)
+                    clone.tag = "PlacedBushSquare";
+                    List<Transform> placedFieldSquare = clone.GetComponent<BushTrigger>().collidderField;
+                    placedFieldSquare[0].gameObject.tag = "PlacedField";
+                    bushSquareList.Clear();
+                    ChangeTurn();
+                    isGift = false;
                 }
 
             }
-            yield return null;
         }
-        yield return new WaitForSeconds(0.1f);
+
     }
+
+
 }

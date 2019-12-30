@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject mazeCam, fieldCam, miniMapCam, minimapImage;
+    public GameObject mazeCam, fieldCam, miniMapCam, minimapImage, minimapBorder;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,7 @@ public class CameraController : MonoBehaviour
             fieldCam.SetActive(true);
             miniMapCam.SetActive(false);
             minimapImage.SetActive(false);
+            minimapBorder.SetActive(false);
         }
         else
         {
@@ -34,6 +35,7 @@ public class CameraController : MonoBehaviour
             fieldCam.SetActive(false);
             miniMapCam.SetActive(true);
             minimapImage.SetActive(true);
+            minimapBorder.SetActive(true);
         }
     }
 }

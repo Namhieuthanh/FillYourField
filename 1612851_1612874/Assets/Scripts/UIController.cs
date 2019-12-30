@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     public Text[] goldsInfo = new Text[2];
     public Text[] profitsInfo = new Text[2];
     public Text[] scoresInfo = new Text[2];
+   
 
     void Start()
     {
