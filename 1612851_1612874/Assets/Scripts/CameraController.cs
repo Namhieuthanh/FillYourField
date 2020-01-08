@@ -11,11 +11,13 @@ public class CameraController : MonoBehaviour
         mazeCam.SetActive(true);
         fieldCam.SetActive(false);
         miniMapCam.SetActive(true);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Tab))
             SwitchCam();
     }

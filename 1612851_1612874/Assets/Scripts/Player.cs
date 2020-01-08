@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public int gold, score, profit;
     public bool haveGift;
+    public AudioSource coinColAudio;
     public GameObject playerChar, playerField;
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
     {
         if (playerChar.GetComponent<CharacterTrigger>().appleTrigger)
         {
+            coinColAudio.Play();
             ReciveGold(profit);
             //CalculateScore();
         }

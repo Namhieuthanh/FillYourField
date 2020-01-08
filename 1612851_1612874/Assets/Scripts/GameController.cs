@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public Material redMat, greenMat, greyMat;
     public Button skipButton;
     public GameObject[] playerTurnMark = new GameObject[2];
+    public AudioSource bushColAudio, turnAudio;
+    public GameObject defaultCanvas, resultScreen, player1WinImg, player2WinImg;
 
     //danh sách biến chức năng đặt cỏ vào field
     GameObject currentObject, clone;
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         turn = true;
+        resultScreen.SetActive(false);
 
     }
     void Update()
@@ -69,6 +72,8 @@ public class GameController : MonoBehaviour
 
             }
         }
+
+        CheckWin();
     }
 
     void ChooseBushAndClone()
@@ -340,6 +345,7 @@ public class GameController : MonoBehaviour
     void ChangeTurn()
     {
         turn = !turn;
+        turnAudio.Play();
     }
 
     bool CheckChangeTurn()
@@ -407,9 +413,10 @@ public class GameController : MonoBehaviour
     {
         for (int playerID = 0; playerID < 2; playerID++)
         {
+            
             if (players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareTrigger == true)
             {
-
+                bushColAudio.Play();
                 isGift = true;
                 players[playerID].GetComponent<Player>().playerChar.GetComponent<CharacterTrigger>().squareTrigger = false;
 
@@ -475,6 +482,7 @@ public class GameController : MonoBehaviour
                     placedFieldSquare[0].gameObject.tag = "PlacedField";
                     bushSquareList.Clear();
                     ChangeTurn();
+                    camController.GetComponent<CameraController>().SwitchCam();
                     isGift = false;
                 }
 
@@ -483,5 +491,22 @@ public class GameController : MonoBehaviour
 
     }
 
-
+    void CheckWin()
+    {
+        if ((players[0].GetComponent<Player>().playerChar.GetComponent<Character>().stop == true) && (players[1].GetComponent<Player>().playerChar.GetComponent<Character>().stop == true))
+        {
+            defaultCanvas.SetActive(false);
+            resultScreen.SetActive(true);
+            if (players[0].GetComponent <Player>().score > players[1].GetComponent<Player>().score)
+            {
+                player1WinImg.SetActive(true);
+                player2WinImg.SetActive(false);
+            }
+            else
+            {
+                player2WinImg.SetActive(true);
+                player1WinImg.SetActive(false);
+            }
+        }
+    }
 }

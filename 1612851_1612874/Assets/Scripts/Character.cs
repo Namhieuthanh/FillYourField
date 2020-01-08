@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public int currentMazeBox;
     public int movingBox;
     bool isMoving = false;
+    public bool stop = false;
    
     // Start is called before the first frame update
     void Start()
@@ -28,10 +29,13 @@ public class Character : MonoBehaviour
         if (currentMazeBox + steps < thisMaze.mazeBoxList.Length)
         {
             currentMazeBox += steps;
+            if (currentMazeBox == thisMaze.mazeBoxList.Length - 1)
+                stop = true;
         }
         else
         {
             currentMazeBox = thisMaze.mazeBoxList.Length - 1;
+            stop = true;
         }
         
     }
