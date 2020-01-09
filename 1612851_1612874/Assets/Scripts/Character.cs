@@ -30,7 +30,9 @@ public class Character : MonoBehaviour
         {
             currentMazeBox += steps;
             if (currentMazeBox == thisMaze.mazeBoxList.Length - 1)
+            {
                 stop = true;
+            }
         }
         else
         {

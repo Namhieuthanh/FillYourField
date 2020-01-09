@@ -474,3 +474,4 @@ E:\Documents\GitHub\FillYourField\1612851_1612874\obj\Debug\Assembly-CSharp.cspr
 E:\Documents\GitHub\FillYourField\1612851_1612874\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 E:\Documents\GitHub\FillYourField\1612851_1612874\obj\Debug\Assembly-CSharp.dll
 E:\Documents\GitHub\FillYourField\1612851_1612874\obj\Debug\Assembly-CSharp.pdb
+E:\Documents\GitHub\FillYourField\1612851_1612874\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

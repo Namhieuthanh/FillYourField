@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\OptionController.cs" />
      <Compile Include="Assets\Scripts\PauseMenuController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\ResultController.cs" />
      <Compile Include="Assets\Scripts\UIController.cs" />
      <None Include="Assets\Prefabs\Fruit Pack\Shaders\ToonLitTransparent.shader" />
      <None Include="Assets\Prefabs\Fruit Pack\Shaders\ToonLit.shader" />

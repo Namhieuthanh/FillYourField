@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int gold, score, profit;
+    public int gold, score, profit, unplacedFieldNumber;
     public bool haveGift;
     public AudioSource coinColAudio;
     public GameObject playerChar, playerField;
@@ -35,8 +35,8 @@ public class Player : MonoBehaviour
 
     public void CalculateScore()
     {
-        int emptyFieldNumber = playerField.GetComponent<Field>().GetUnplacedFieldNumber();
-        score = 162 + gold - 2 * emptyFieldNumber;
+        unplacedFieldNumber = playerField.GetComponent<Field>().GetUnplacedFieldNumber();
+        score = 162 + gold - 2 * unplacedFieldNumber;
         if (haveGift == true)
             score += 7;
     }

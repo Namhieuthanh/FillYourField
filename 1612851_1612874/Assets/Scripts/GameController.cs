@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public Button skipButton;
     public GameObject[] playerTurnMark = new GameObject[2];
     public AudioSource bushColAudio, turnAudio;
-    public GameObject defaultCanvas, resultScreen, player1WinImg, player2WinImg;
+    public GameObject defaultCanvas, resultScreen, pauseCanvas;
 
     //danh sách biến chức năng đặt cỏ vào field
     GameObject currentObject, clone;
@@ -26,11 +26,15 @@ public class GameController : MonoBehaviour
     void Start()
     {
         turn = true;
-        resultScreen.SetActive(false);
+        pauseCanvas.SetActive(false);
 
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseCanvas.SetActive(true);
+        }
         if (turn)
         {
             playerTurnMark[0].SetActive(true);
@@ -497,16 +501,7 @@ public class GameController : MonoBehaviour
         {
             defaultCanvas.SetActive(false);
             resultScreen.SetActive(true);
-            if (players[0].GetComponent <Player>().score > players[1].GetComponent<Player>().score)
-            {
-                player1WinImg.SetActive(true);
-                player2WinImg.SetActive(false);
-            }
-            else
-            {
-                player2WinImg.SetActive(true);
-                player1WinImg.SetActive(false);
-            }
         }
     }
+
 }
